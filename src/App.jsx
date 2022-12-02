@@ -21,7 +21,10 @@ function App() {
     }
 
     const onClick = () => {
-        if (!textResult) return;
+        if (!textResult) {
+            alert('Ko co input data');
+            return;
+        }
         const todo = {
             id: uudiv4(),
             compledted: false,
