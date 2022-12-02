@@ -13,7 +13,7 @@ import FormControl from './components/FormControl.jsx'
 
 function App() {
     const [textResult, setTextResult] = useState('');
-    const [todos, setTodos] = useState([]);
+    const [todoList, setTodos] = useState([]);
 
     const handleOnChange = event => {
         const { value } = event.target;
@@ -27,22 +27,34 @@ function App() {
             compledted: false,
             content: textResult
         }
-        const newTodos = todos.concat(todo);
+        const newTodos = todoList.concat(todo);
         setTodos(newTodos);
         setTextResult('');
     }
 
     const onCompletedItem = (event, item, index) => {
-        todos[index] = { ...item, compledted: !item.compledted };
-        setTodos([...todos]);
+        todoList[index] = { ...item, compledted: !item.compledted };
+        setTodos([...todoList]);
     }
 
-    const renderTodos = todos.map((item, index) => {
+    const handleRemove = (event, index) => {
+        if (index > -1) {
+            todoList.splice(index, 1);
+        }
+        setTodos([...todoList]);
+    }
+
+    const renderTodos = todoList.map((item, index) => {
         return <div key={item.id}>
             <Input type="checkbox" onChange={(event) => onCompletedItem(event, item, index)} />
             {item.content}
+            <Button color="danger" onClick={(event) => handleRemove(event, index)}>X</Button>
         </div>
     });
+
+    const itemsLeft = (todoList) => {
+        return <div>{todoList.length} items left</div>
+    }
 
     return (
         <div className="App">
@@ -60,6 +72,9 @@ function App() {
                 <Button onClick={onClick}>Click</Button>
             </div>
             {renderTodos}
+            <div>
+                {itemsLeft(todoList)}
+            </div>
         </div>
     )
 }
