@@ -67,9 +67,9 @@ function App() {
             <Footer></Footer>
 
             <TableClass></TableClass>
-            <ProductList></ProductList>
-            <FormControl></FormControl> */}
-            <Header></Header>
+            <ProductList></ProductList>*/
+                <FormControl></FormControl>}
+            {/* <Header></Header>
             <div>
                 <Input type="text" placeholder="todo..." onChange={handleOnChange} value={textResult} />
                 <Button onClick={onClick}>Click</Button>
@@ -77,7 +77,7 @@ function App() {
             {renderTodos}
             <div>
                 {itemsLeft(todoList)}
-            </div>
+            </div> */}
         </div>
     )
 }

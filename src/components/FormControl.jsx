@@ -1,4 +1,4 @@
-import { Form, Label, FormGroup, Input, Button, Card } from 'reactstrap'
+import { Form, Label, FormGroup, Input, Button, Card, FormFeedback } from 'reactstrap'
 import React from 'react'
 
 
@@ -15,8 +15,9 @@ const FormControl = () => {
     const [currentValue, setCurrentValue] = React.useState({
         ...object
     })
-
     const [currentValueInput, setCurrentValueInput] = React.useState([]);
+    const [errors, setErrors] = React.useState({});
+
 
     const RenderListItem = currentValueInput.map(object => {
         return <Card key={object.email}>
@@ -36,30 +37,51 @@ const FormControl = () => {
                 {
                     const { value, name } = event.target;
                     setCurrentValue({ ...currentValue, [name]: value });
+                    if (!!errors[name]) setErrors({ ...errors, [name]: null })
                 }
                 break;
             case 'radio':
                 {
                     const { value, name, checked } = event.target;
                     setCurrentValue({ ...currentValue, [name]: { key: value, value: value } });
+                    if (!!errors[name]) setErrors({ ...errors, [name]: null })
                 }
                 break;
             default: break;
         }
+
+    }
+
+    const validateForm = () => {
+        const { email, password, username, gender, gender2 } = currentValue;
+        const newError = {};
+
+        if (!email || email === '') newError.email = 'Please enter your email';
+        if (!password || password === '') newError.password = 'Please enter your password';
+        if (!username || username === '') newError.username = 'Please enter your username';
+        if (!gender || gender === '') newError.gender = 'Please enter your gender';
+        return newError;
     }
 
     const handleOnSubmit = event => {
         event.preventDefault();
-        setCurrentValueInput(prev => {
-            return prev.concat(currentValue);
-        });
-        setCurrentValue(object);
+
+        const formErrors = validateForm();
+        console.log(Object.keys(formErrors));
+        if (Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+        } else {
+            setCurrentValueInput(prev => {
+                return prev.concat(currentValue);
+            });
+            setCurrentValue(object);
+        }
     }
 
 
     return (
         <Form onSubmit={handleOnSubmit}>
-            <FormGroup>
+            <FormGroup id="email">
                 <Label for="exampleEmail" sm={2}>
                     Email
                 </Label>
@@ -71,8 +93,9 @@ const FormControl = () => {
                     type="email"
                     value={currentValue.email}
                 />
+                <div>{errors.email}</div>
             </FormGroup>
-            <FormGroup>
+            <FormGroup id="password">
                 <Label for="examplePassword" sm={2}>
                     Password
                 </Label>
