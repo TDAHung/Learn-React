@@ -10,10 +10,13 @@ import Footer from './components/Footer.jsx'
 import TableClass from './components/TableClass.jsx'
 import ProductList from './components/ProductList.jsx'
 import FormControl from './components/FormControl.jsx'
+import Effect from './components/Effect.jsx'
+import Upload from './components/Upload.jsx'
 
 function App() {
     const [textResult, setTextResult] = useState('');
     const [todoList, setTodos] = useState([]);
+    const [show, setShow] = useState('');
 
     const handleOnChange = event => {
         const { value } = event.target;
@@ -59,6 +62,11 @@ function App() {
         return <div>{todoList.length} items left</div>
     }
 
+    const removeAll = () => {
+        const todoTemp = [];
+        setTodos([...todoTemp]);
+    }
+
     return (
         <div className="App">
             {/* <Header></Header>
@@ -67,8 +75,10 @@ function App() {
             <Footer></Footer>
 
             <TableClass></TableClass>
-            <ProductList></ProductList>*/
-                <FormControl></FormControl>}
+            <ProductList></ProductList>
+            <FormControl></FormControl> */}
+
+
             {/* <Header></Header>
             <div>
                 <Input type="text" placeholder="todo..." onChange={handleOnChange} value={textResult} />
@@ -77,7 +87,13 @@ function App() {
             {renderTodos}
             <div>
                 {itemsLeft(todoList)}
+                <div>
+                    <Button onClick={removeAll}>Clear</Button>
+                </div>
             </div> */}
+            <Button onClick={() => { setShow(!show) }}>Toggle</Button>
+            {show ? <Effect /> : null}
+            {/* <Upload></Upload> */}
         </div>
     )
 }

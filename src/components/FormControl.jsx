@@ -11,7 +11,6 @@ const FormControl = () => {
         gender2: '',
     };
 
-
     const [currentValue, setCurrentValue] = React.useState({
         ...object
     })
@@ -56,10 +55,10 @@ const FormControl = () => {
         const { email, password, username, gender, gender2 } = currentValue;
         const newError = {};
 
-        if (!email || email === '') newError.email = 'Please enter your email';
-        if (!password || password === '') newError.password = 'Please enter your password';
-        if (!username || username === '') newError.username = 'Please enter your username';
-        if (!gender || gender === '') newError.gender = 'Please enter your gender';
+        if (!email) newError.email = 'Please enter your email';
+        if (!password) newError.password = 'Please enter your password';
+        if (!username) newError.username = 'Please enter your username';
+        if (!gender) newError.gender = 'Please enter your gender';
         return newError;
     }
 
@@ -107,6 +106,7 @@ const FormControl = () => {
                     type="password"
                     value={currentValue.password}
                 />
+                <div>{errors.password}</div>
             </FormGroup>
             <FormGroup>
                 <Label for="exampleUsername" sm={2}>
@@ -120,6 +120,7 @@ const FormControl = () => {
                     type="text"
                     value={currentValue.username}
                 />
+                <div>{errors.username}</div>
             </FormGroup>
             <FormGroup>
                 <Input
