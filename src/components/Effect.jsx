@@ -2,13 +2,28 @@ import { useEffect } from 'react';
 import { useState } from 'react'
 import { Button, Input, Spinner } from 'reactstrap'
 import axios from 'axios';
+import { validate } from 'uuid';
 const Effect = () => {
     const [dateString, setDateString] = useState('');
     const [count, setCount] = useState(0);
     const [text, setText] = useState('');
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    const [valid, setValid] = useState(false);
+    const [invalid, setInValid] = useState(true);
 
+    const onChange = (e) => {
+        console.log(e);
+        if (e.target.value.length > 5) {
+            setValid(true)
+            setInValid(false)
+        }
+        else {
+            setValid(false)
+            setInValid(true)
+        }
+
+    }
     // useEffect(() => {
     //     const id = setInterval(() => {
     //         const now = new Date();
@@ -54,17 +69,27 @@ const Effect = () => {
 
     return (
         <div className="effect-component">
-            <Input type="text" value={text} onChange={e => { setText(e.target.value) }}></Input>
+            {/* <Input type="text" value={text} onChange={e => { setText(e.target.value) }}></Input> */}
+            <div>
+                <Input
+                    onChange={onChange}
+                    valid={valid}
+                    invalid={invalid}
+                />
+            </div>
             <div>{text}</div>
-            {loading && <Spinner color="success"
-                type="grow">
-                loading...
-            </Spinner>}
+
+            {loading &&
+                <Spinner color="success"
+                    type="grow">
+                    loading...
+                </Spinner>
+
+            }
             <ul>
                 {renderItem(data)}
             </ul>
-        </div>
+        </div >
     )
 }
-
 export default Effect;

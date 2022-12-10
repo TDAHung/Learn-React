@@ -93,7 +93,7 @@ function App() {
             </div> */}
             <Button onClick={() => { setShow(!show) }}>Toggle</Button>
             {show ? <Effect /> : null}
-            {/* <Upload></Upload> */}
+            <Upload></Upload>
         </div>
     )
 }

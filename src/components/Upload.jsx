@@ -7,8 +7,10 @@ const Upload = () => {
     const [show, setShow] = useState('');
 
     const onChange = (e) => {
+
         const files = e.target.files;
         const url = URL.createObjectURL(files[0]);
+        console.log(url)
         setImgURL(url);
         if (!imgURL) setShow('true');
     }
